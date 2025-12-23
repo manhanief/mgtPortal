@@ -1,8 +1,13 @@
 <?php
 require_once 'config.php';
 require_once 'auth.php';
+require_once 'includes/functions.php';
 
-// Handle login
+/* ==========================
+   AUTH HANDLING
+========================== */
+
+// Login
 if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['password'])) {
     if (authenticate($_POST['password'])) {
         header('Location: index.php');
@@ -11,73 +16,107 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['password'])) {
     $loginError = true;
 }
 
-// Handle logout
+// Logout
 if (isset($_GET['logout'])) {
     logout();
     header('Location: index.php');
     exit;
 }
 
-// Check authentication
+// Authentication check
 if (!isAuthenticated()) {
-    include 'login.php';
+    include 'pages/login.php';
     exit;
 }
 
-// Get current page from URL (default: dashboard)
-$currentPage = $_GET['page'] ?? 'dashboard';
+/* ==========================
+   ROUTING
+========================== */
 
-// Validate page (security)
-$allowedPages = ['dashboard', 'news', 'packages', 'settings'];
-if (!in_array($currentPage, $allowedPages)) {
-    $currentPage = 'dashboard';
+$routes = [
+    // Dashboard
+    'dashboard'         => 'pages/dashboard.php',
+
+    // Home
+    'slideshow'         => 'pages/home/slideshow.php',
+    'systems'           => 'pages/home/systems.php',
+
+    // About
+    'about'             => 'pages/about/index.php',
+    'management'        => 'pages/about/management.php',
+
+    // IT Personnel
+    'it_team'              => 'pages/it_personnel/it_team.php',
+    'it_roster'            => 'pages/it_personnel/roster.php',
+    'it_special_days'      => 'pages/it_personnel/special_days.php',
+
+    // eLearning
+    'slides'            => 'pages/home/slideshow.php',
+    'tickets'           => 'pages/elearning/tickets.php',
+
+    // Other
+    'news'              => 'pages/updates/news.php',
+    'packages'          => 'pages/updates/packages.php',
+    'settings'          => 'pages/settings.php',
+    'sustainability'    => 'pages/sustainability/index.php',
+    'extensions'        => 'pages/phone_extension/index.php',
+];
+
+// Current page (safe default)
+$currentPage = $_GET['page'] ?? 'dashboard';
+$pageFile = $routes[$currentPage] ?? null;
+
+/* ==========================
+   DATA LOADING
+========================== */
+
+$db = getDB();
+
+if ($currentPage === 'dashboard') {
+    $news = $db->query(
+        "SELECT * FROM news ORDER BY id DESC LIMIT 4"
+    )->fetchAll(PDO::FETCH_ASSOC);
+
+    $packages = $db->query(
+        "SELECT * FROM packages ORDER BY id DESC LIMIT 4"
+    )->fetchAll(PDO::FETCH_ASSOC);
 }
 
-// Get data from database
-$db = getDB();
-$news = $db->query("SELECT * FROM `news` ORDER BY `id`")->fetchAll(PDO::FETCH_ASSOC);
-$packages = $db->query("SELECT * FROM `packages` ORDER BY `id`")->fetchAll(PDO::FETCH_ASSOC);
+/* ==========================
+   PAGE META
+========================== */
 
-// Page title
-$pageTitle = ucfirst($currentPage);
+$pageTitle = ucwords(str_replace('-', ' ', $currentPage));
+
 ?>
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Portal Admin - <?= $pageTitle ?></title>
+    <title>Portal Admin – <?= htmlspecialchars($pageTitle) ?></title>
     <link rel="stylesheet" href="assets/admin-style.css">
 </head>
 <body>
-    <div class="admin-container">
-        <?php 
-        // Include header
-        include 'includes/header.php'; 
-        
-        // Include navigation
-        include 'includes/navigation.php'; 
+
+<div class="admin-container">
+
+    <?php include 'includes/header.php'; ?>
+    <?php include 'includes/navigation.php'; ?>
+
+    <main class="dashboard">
+        <?php
+        if ($pageFile && file_exists($pageFile)) {
+            require $pageFile;
+        } else {
+            require 'pages/404.php';
+        }
         ?>
+    </main>
+</div>
 
-        <!-- Main Content Area -->
-        <div class="dashboard">
-            <?php 
-            // Load page content dynamically
-            $pageFile = "pages/{$currentPage}.php";
-            if (file_exists($pageFile)) {
-                include $pageFile;
-            } else {
-                echo '<p>Page not found.</p>';
-            }
-            ?>
-        </div>
-
-        <?php 
-        // Include footer (optional)
-        // include 'includes/footer.php'; 
-        ?>
-    </div>
-
-    <script src="assets/admin-script.js"></script>
+<script src="assets/script.js"></script>
 </body>
 </html>
+
