@@ -143,7 +143,7 @@ function closeSustainModal() {
 }
 
 function editSustain(id) {
-    fetch(`handlers/sustainability-handler.php?action=get&id=${id}`)
+    fetch(`controllers/sustainability.php?action=get&id=${id}`)
         .then(res => res.json())
         .then(data => {
             if (data.success) {
@@ -163,7 +163,7 @@ function editSustain(id) {
 function deleteSustain(id) {
     if (!confirm('Delete this item?')) return;
     
-    fetch('handlers/sustainability-handler.php', {
+    fetch('controllers/sustainability.php', {
         method: 'POST',
         headers: {'Content-Type': 'application/x-www-form-urlencoded'},
         body: `action=delete&id=${id}`
@@ -181,7 +181,7 @@ document.getElementById('sustainForm').addEventListener('submit', async (e) => {
     const formData = new FormData(e.target);
     formData.append('action', document.getElementById('sustainId').value ? 'update' : 'create');
     
-    const response = await fetch('handlers/sustainability-handler.php', {
+    const response = await fetch('controllers/sustainability.php', {
         method: 'POST',
         body: formData
     });

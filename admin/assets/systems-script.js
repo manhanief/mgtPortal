@@ -10,7 +10,7 @@ function closeSystemModal() {
 }
 
 function editSystem(id) {
-    fetch(`handlers/systems-handler.php?action=get&id=${id}`)
+    fetch(`controllers/systems.php?action=get&id=${id}`)
         .then(res => res.json())
         .then(data => {
             if (data.success) {
@@ -31,7 +31,7 @@ function editSystem(id) {
 function deleteSystem(id) {
     if (!confirm('Delete this system?')) return;
     
-    fetch('handlers/systems-handler.php', {
+    fetch('controllers/systems.php', {
         method: 'POST',
         headers: {'Content-Type': 'application/x-www-form-urlencoded'},
         body: `action=delete&id=${id}`
@@ -52,7 +52,7 @@ document.getElementById('systemForm').addEventListener('submit', async (e) => {
     const formData = new FormData(e.target);
     formData.append('action', document.getElementById('systemId').value ? 'update' : 'create');
     
-    const response = await fetch('handlers/systems-handler.php', {
+    const response = await fetch('controllers/systems.php', {
         method: 'POST',
         body: formData
     });

@@ -124,7 +124,7 @@ function closeSlideModal() {
 }
 
 function editSlide(id) {
-    fetch(`handlers/elearning-handler.php?action=get&id=${id}`)
+    fetch(`controllers/elearning.php?action=get&id=${id}`)
         .then(res => res.json())
         .then(data => {
             if (data.success) {
@@ -146,7 +146,7 @@ function editSlide(id) {
 function deleteSlide(id) {
     if (!confirm('Delete this slide?')) return;
     
-    fetch('handlers/elearning-handler.php', {
+    fetch('controllers/elearning.php', {
         method: 'POST',
         headers: {'Content-Type': 'application/x-www-form-urlencoded'},
         body: `action=delete&id=${id}`
@@ -164,7 +164,7 @@ document.getElementById('slideForm').addEventListener('submit', async (e) => {
     const formData = new FormData(e.target);
     formData.append('action', document.getElementById('slideId').value ? 'update' : 'create');
     
-    const response = await fetch('handlers/elearning-handler.php', {
+    const response = await fetch('controllers/elearning.php', {
         method: 'POST',
         body: formData
     });

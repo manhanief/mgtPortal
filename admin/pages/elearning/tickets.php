@@ -130,7 +130,7 @@ function closeTicketModal() {
 }
 
 function editTicket(id) {
-    fetch(`handlers/tickets-handler.php?action=get&id=${id}`)
+    fetch(`controllers/tickets.php?action=get&id=${id}`)
         .then(res => res.json())
         .then(data => {
             if (data.success) {
@@ -151,7 +151,7 @@ function editTicket(id) {
 function deleteTicket(id) {
     if (!confirm('Delete this ticket?')) return;
     
-    fetch('handlers/tickets-handler.php', {
+    fetch('controllers/tickets.php', {
         method: 'POST',
         headers: {'Content-Type': 'application/x-www-form-urlencoded'},
         body: `action=delete&id=${id}`
@@ -169,7 +169,7 @@ document.getElementById('ticketForm').addEventListener('submit', async (e) => {
     const formData = new FormData(e.target);
     formData.append('action', document.getElementById('ticketId').value ? 'update' : 'create');
     
-    const response = await fetch('handlers/tickets-handler.php', {
+    const response = await fetch('controllers/tickets.php', {
         method: 'POST',
         body: formData
     });

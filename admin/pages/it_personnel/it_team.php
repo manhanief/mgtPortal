@@ -118,7 +118,7 @@ function closeITModal() {
 }
 
 function editITMember(id) {
-    fetch(`handlers/it-team-handler.php?action=get&id=${id}`)
+    fetch(`controllers/it_team.php?action=get&id=${id}`)
         .then(res => res.json())
         .then(data => {
             if (data.success) {
@@ -140,7 +140,7 @@ function editITMember(id) {
 function deleteITMember(id) {
     if (!confirm('Delete this team member?')) return;
     
-    fetch('handlers/it-team-handler.php', {
+    fetch('controllers/it_team.php', {
         method: 'POST',
         headers: {'Content-Type': 'application/x-www-form-urlencoded'},
         body: `action=delete&id=${id}`
@@ -161,7 +161,7 @@ document.getElementById('itForm').addEventListener('submit', async (e) => {
     const formData = new FormData(e.target);
     formData.append('action', document.getElementById('itId').value ? 'update' : 'create');
     
-    const response = await fetch('handlers/it-team-handler.php', {
+    const response = await fetch('controllers/it_team.php', {
         method: 'POST',
         body: formData
     });

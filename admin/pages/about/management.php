@@ -241,7 +241,7 @@ function showTab(tab) {
 }
 
 function editManagement(table, id) {
-    fetch(`handlers/management-handler.php?action=get&table=${table}&id=${id}`)
+    fetch(`controllers/management.php?action=get&table=${table}&id=${id}`)
         .then(res => res.json())
         .then(data => {
             if (data.success) {
@@ -267,7 +267,7 @@ document.getElementById('managementForm').addEventListener('submit', async (e) =
     
     const formData = new FormData(e.target);
     
-    const response = await fetch('handlers/management-handler.php', {
+    const response = await fetch('controllers/management.php', {
         method: 'POST',
         body: formData
     });

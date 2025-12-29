@@ -131,7 +131,7 @@ document.getElementById('aboutForm').addEventListener('submit', async (e) => {
     submitBtn.textContent = '⏳ Saving...';
     
     try {
-        const response = await fetch('handlers/about-handler.php', {
+        const response = await fetch('controllers/about.php', {
             method: 'POST',
             body: formData
         });

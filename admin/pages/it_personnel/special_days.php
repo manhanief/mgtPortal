@@ -198,7 +198,7 @@ function closeSpecialDayModal() {
 }
 
 function editSpecialDay(id) {
-    fetch(`handlers/special-days-handler.php?action=get_day&id=${id}`)
+    fetch(`controllers/special_days.php?action=get_day&id=${id}`)
         .then(res => res.json())
         .then(data => {
             if (data.success) {
@@ -218,7 +218,7 @@ function editSpecialDay(id) {
 function deleteSpecialDay(id) {
     if (!confirm('Delete this special day?')) return;
     
-    fetch('handlers/special-days-handler.php', {
+    fetch('controllers/special_days.php', {
         method: 'POST',
         headers: {'Content-Type': 'application/x-www-form-urlencoded'},
         body: `action=delete_day&id=${id}`
@@ -236,7 +236,7 @@ document.getElementById('specialDayForm').addEventListener('submit', async (e) =
     const formData = new FormData(e.target);
     formData.append('action', document.getElementById('specialDayId').value ? 'update_day' : 'create_day');
     
-    const response = await fetch('handlers/special-days-handler.php', {
+    const response = await fetch('controllers/special_days.php', {
         method: 'POST',
         body: formData
     });
@@ -259,7 +259,7 @@ function closeHolidayModal() {
 }
 
 function editHoliday(id) {
-    fetch(`handlers/special-days-handler.php?action=get_holiday&id=${id}`)
+    fetch(`controllers/special_days.php?action=get_holiday&id=${id}`)
         .then(res => res.json())
         .then(data => {
             if (data.success) {
@@ -279,7 +279,7 @@ function editHoliday(id) {
 function deleteHoliday(id) {
     if (!confirm('Delete this holiday?')) return;
     
-    fetch('handlers/special-days-handler.php', {
+    fetch('controllers/special_days.php', {
 method: 'POST',
 headers: {'Content-Type': 'application/x-www-form-urlencoded'},
 body: action=delete_holiday&id=${id}
@@ -294,7 +294,7 @@ document.getElementById('holidayForm').addEventListener('submit', async (e) => {
 e.preventDefault();const formData = new FormData(e.target);
 formData.append('action', document.getElementById('holidayId').value ? 'update_holiday' : 'create_holiday');
 
-const response = await fetch('handlers/special-days-handler.php', {
+const response = await fetch('controllers/special_days.php', {
     method: 'POST',
     headers: {'Content-Type': 'application/x-www-form-urlencoded'},
     body: new URLSearchParams(formData)

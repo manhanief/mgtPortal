@@ -117,7 +117,7 @@ $roster = getTableData($db, 'it_roster', 'id', 'ASC');
 
 <script>
 function editRosterBox(id) {
-    fetch(`handlers/roster-handler.php?action=get&id=${id}`)
+    fetch(`controllers/roster.php?action=get&id=${id}`)
         .then(res => res.json())
         .then(data => {
             if (data.success) {
@@ -143,7 +143,7 @@ document.getElementById('rosterForm').addEventListener('submit', async (e) => {
     
     const formData = new FormData(e.target);
     
-    const response = await fetch('handlers/roster-handler.php', {
+    const response = await fetch('controllers/roster.php', {
         method: 'POST',
         headers: {'Content-Type': 'application/x-www-form-urlencoded'},
         body: new URLSearchParams(formData)

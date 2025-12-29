@@ -2,7 +2,7 @@
 // ====================================
 // ADMIN CREDENTIALS - CHANGE THIS!
 // ====================================
-define('ADMIN_PASSWORD', 'kpjway');  // ← CHANGE THIS PASSWORD!
+define('ADMIN_PASSWORD', 'manhanief');  // ← CHANGE THIS PASSWORD!
 
 // ====================================
 // DATABASE CONFIGURATION (MySQL)

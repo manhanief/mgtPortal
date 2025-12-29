@@ -1,6 +1,6 @@
 ---
 
-### **File: `admin/handlers/special-days-handler.php`**
+### **File: `admin/controllers/special-days.php`**
 ```php
 <?php
 require_once '../config.php';

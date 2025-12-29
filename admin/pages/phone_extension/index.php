@@ -118,7 +118,7 @@ function closeExtModal() {
 }
 
 function editExt(id) {
-    fetch(`handlers/extensions-handler.php?action=get&id=${id}`)
+    fetch(`controllers/extension.php?action=get&id=${id}`)
         .then(res => res.json())
         .then(data => {
             if (data.success) {
@@ -142,7 +142,7 @@ function editExt(id) {
 function deleteExt(id) {
     if (!confirm('Delete this extension?')) return;
     
-    fetch('handlers/extensions-handler.php', {
+    fetch('controllers/extension.php', {
         method: 'POST',
         headers: {'Content-Type': 'application/x-www-form-urlencoded'},
         body: `action=delete&id=${id}`
@@ -160,7 +160,7 @@ document.getElementById('extForm').addEventListener('submit', async (e) => {
     const formData = new FormData(e.target);
     formData.append('action', document.getElementById('extId').value ? 'update' : 'create');
     
-    const response = await fetch('handlers/extensions-handler.php', {
+    const response = await fetch('controllers/extension.php', {
         method: 'POST',
         headers: {'Content-Type': 'application/x-www-form-urlencoded'},
         body: new URLSearchParams(formData)

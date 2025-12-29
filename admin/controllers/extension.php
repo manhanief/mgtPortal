@@ -1,6 +1,6 @@
 
 
-### **File: `admin/handlers/extensions-handler.php`**
+### **File: `admin/controllers/extensions.php`**
 ```php
 <?php
 require_once '../config.php';
