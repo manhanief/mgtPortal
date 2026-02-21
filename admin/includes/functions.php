@@ -37,6 +37,13 @@ function uploadImage($file, $targetDir, $prefix = 'img') {
     return ['success' => false, 'error' => 'Failed to save file'];
 }
 
+//get it team list
+function getITTeamList($db) {
+    $stmt = $db->prepare("SELECT * FROM `it_team` ORDER BY `name` ASC");
+    $stmt->execute();
+    return $stmt->fetchAll(PDO::FETCH_ASSOC);
+}
+
 // Delete image function
 function deleteImage($path) {
     if ($path && file_exists($path)) {

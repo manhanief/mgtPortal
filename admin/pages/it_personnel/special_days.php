@@ -104,7 +104,7 @@ $holidays = $db->query("SELECT * FROM `public_holidays` ORDER BY `date` DESC")->
         <h3 id="specialDayModalTitle">Add Special Day</h3>
         
         <form id="specialDayForm" enctype="multipart/form-data">
-            <input type="hidden" id="specialDayId" name="id">
+            <input type="hidden" id="specialDayId" name="id" >
             
             <div class="form-group">
                 <label>Week Number: *</label>
@@ -278,18 +278,28 @@ function editHoliday(id) {
 
 function deleteHoliday(id) {
     if (!confirm('Delete this holiday?')) return;
-    
+
     fetch('controllers/special_days.php', {
-method: 'POST',
-headers: {'Content-Type': 'application/x-www-form-urlencoded'},
-body: action=delete_holiday&id=${id}
-})
-.then(res => res.json())
-.then(data => {
-if (data.success) location.reload();
-else alert(data.error);
-});
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/x-www-form-urlencoded'
+        },
+        body: `action=delete_holiday&id=${encodeURIComponent(id)}`
+    })
+    .then(response => response.json())
+    .then(data => {
+        if (data.success) {
+            location.reload();
+        } else {
+            alert(data.error || 'Failed to delete holiday');
+        }
+    })
+    .catch(error => {
+        console.error('Error:', error);
+        alert('Something went wrong. Please try again.');
+    });
 }
+
 document.getElementById('holidayForm').addEventListener('submit', async (e) => {
 e.preventDefault();const formData = new FormData(e.target);
 formData.append('action', document.getElementById('holidayId').value ? 'update_holiday' : 'create_holiday');

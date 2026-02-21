@@ -60,6 +60,7 @@ $routes = [
     'settings'          => 'pages/settings.php',
     'sustainability'    => 'pages/sustainability/index.php',
     'extensions'        => 'pages/phone_extension/index.php',
+    'staff'             => 'pages/new_staff/index.php',
 ];
 
 // Current page (safe default)

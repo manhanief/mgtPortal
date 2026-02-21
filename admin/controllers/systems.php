@@ -31,9 +31,14 @@ switch ($action) {
         
         $iconPath = '';
         if (isset($_FILES['icon']) && $_FILES['icon']['error'] === UPLOAD_ERR_OK) {
+
+            $publicDir = 'uploads/systems/';               // what you WANT
+            $uploadDir = '/' . $publicDir;  // filesystem
             $upload = uploadImage($_FILES['icon'], UPLOAD_DIR . 'systems/', 'icon');
+
             if ($upload['success']) {
-                $iconPath = str_replace('../', '', $upload['path']);
+                
+                $iconPath = $publicDir . $upload['filename'];
             }
         }
         
@@ -64,9 +69,13 @@ switch ($action) {
         
         if (isset($_FILES['icon']) && $_FILES['icon']['error'] === UPLOAD_ERR_OK) {
             if ($iconPath) deleteImage('../' . $iconPath);
+            
+            $publicDir = 'uploads/systems/';               // what you WANT
+            $uploadDir = '/' . $publicDir;  // filesystem
             $upload = uploadImage($_FILES['icon'], UPLOAD_DIR . 'systems/', 'icon');
+            
             if ($upload['success']) {
-                $iconPath = str_replace('../', '', $upload['path']);
+                $iconPath = $publicDir . $upload['filename'];
             }
         }
         

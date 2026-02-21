@@ -28,9 +28,11 @@ case 'create':
     
     $imagePath = '';
     if (isset($_FILES['image']) && $_FILES['image']['error'] === UPLOAD_ERR_OK) {
+                $publicDir = 'uploads/sustainability/';               // what you WANT
+                $uploadDir = '/' . $publicDir;  // filesystem
         $upload = uploadImage($_FILES['image'], UPLOAD_DIR . 'sustainability/', 'sustain');
         if ($upload['success']) {
-            $imagePath = str_replace('../', '', $upload['path']);
+            $imagePath = $publicDir . $upload['filename'];
         }
     }
     
@@ -60,9 +62,13 @@ case 'update':
     
     if (isset($_FILES['image']) && $_FILES['image']['error'] === UPLOAD_ERR_OK) {
         if ($imagePath) deleteImage('../' . $imagePath);
+        
+        $publicDir = 'uploads/sustainability/';               // what you WANT
+        $uploadDir = '/' . $publicDir;  // filesystem
+
         $upload = uploadImage($_FILES['image'], UPLOAD_DIR . 'sustainability/', 'sustain');
         if ($upload['success']) {
-            $imagePath = str_replace('../', '', $upload['path']);
+            $imagePath = $publicDir . $upload['filename'];
         }
     }
     

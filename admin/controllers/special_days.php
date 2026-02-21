@@ -1,7 +1,3 @@
----
-
-### **File: `admin/controllers/special-days.php`**
-```php
 <?php
 require_once '../config.php';
 require_once '../auth.php';
@@ -25,6 +21,7 @@ switch ($action) {
         $stmt->execute([$id]);
         $data = $stmt->fetch(PDO::FETCH_ASSOC);
         echo json_encode(['success' => true, 'data' => $data]);
+        exit();
         break;
         
     case 'create_day':
@@ -35,7 +32,7 @@ switch ($action) {
         
         $imagePath = '';
         if (isset($_FILES['image']) && $_FILES['image']['error'] === UPLOAD_ERR_OK) {
-            $upload = uploadImage($_FILES['image'], UPLOAD_DIR . 'special-days/', 'day');
+            $upload = uploadImage($_FILES['image'], UPLOAD_DIR . 'special_days/', 'day');
             if ($upload['success']) {
                 $imagePath = str_replace('../', '', $upload['path']);
             }
@@ -51,6 +48,7 @@ switch ($action) {
         } else {
             echo json_encode(['success' => false, 'error' => 'Failed to create']);
         }
+        exit();
         break;
         
     case 'update_day':
@@ -67,7 +65,7 @@ switch ($action) {
         
         if (isset($_FILES['image']) && $_FILES['image']['error'] === UPLOAD_ERR_OK) {
             if ($imagePath) deleteImage('../' . $imagePath);
-            $upload = uploadImage($_FILES['image'], UPLOAD_DIR . 'special-days/', 'day');
+            $upload = uploadImage($_FILES['image'], UPLOAD_DIR . 'special_days/', 'day');
             if ($upload['success']) {
                 $imagePath = str_replace('../', '', $upload['path']);
             }
@@ -84,6 +82,7 @@ switch ($action) {
         } else {
             echo json_encode(['success' => false, 'error' => 'Failed to update']);
         }
+        exit();
         break;
         
     case 'delete_day':
@@ -103,6 +102,7 @@ switch ($action) {
         } else {
             echo json_encode(['success' => false, 'error' => 'Failed to delete']);
         }
+        exit();
         break;
         
     // Public Holiday Actions
@@ -112,6 +112,7 @@ switch ($action) {
         $stmt->execute([$id]);
         $data = $stmt->fetch(PDO::FETCH_ASSOC);
         echo json_encode(['success' => true, 'data' => $data]);
+        exit();
         break;
         
     case 'create_holiday':
@@ -130,6 +131,7 @@ switch ($action) {
         } else {
             echo json_encode(['success' => false, 'error' => 'Failed to create']);
         }
+        exit();
         break;
         
     case 'update_holiday':
@@ -150,21 +152,30 @@ switch ($action) {
         } else {
             echo json_encode(['success' => false, 'error' => 'Failed to update']);
         }
+        exit();
         break;
         
-    case 'delete_holiday':
-        $id = $_POST['id'] ?? 0;
-        
-        $stmt = $db->prepare("DELETE FROM `public_holidays` WHERE `id` = ?");
-        if ($stmt->execute([$id])) {
-            echo json_encode(['success' => true]);
-        } else {
-            echo json_encode(['success' => false, 'error' => 'Failed to delete']);
-        }
-        break;
+case 'delete_holiday':
+    $id = $_POST['id'] ?? 0;
+
+    $stmt = $db->prepare("DELETE FROM `public_holidays` WHERE `id` = ?");
+    if ($stmt->execute([$id])) {
+        echo json_encode(['success' => true]);
+    } else {
+        echo json_encode(['success' => false, 'error' => 'Delete failed']);
+    }
+    exit; // 🔥 THIS IS THE KEY
+    break;
+
         
     default:
-        echo json_encode(['success' => false, 'error' => 'Invalid action']);
+    echo json_encode([
+        'success' => false,
+        'error' => 'Invalid action'
+    ]);
+    exit;
+
+    
 }
 ?>
 ```

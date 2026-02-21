@@ -42,6 +42,6 @@ switch ($action) {
         break;
         
     default:
-        echo json_encode(['success' => false, 'error' => 'Invalid action']);
+        echo json_encode(['success' => false, 'error' => 'Invalid actions']);
 }
 ?>

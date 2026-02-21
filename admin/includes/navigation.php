@@ -55,7 +55,7 @@
     <a href="?page=sustainability" class="nav-link <?= $currentPage === 'sustainability' ? 'active' : '' ?>">
          Sustainability
     </a>
-    <a href="?page=newStaff" class="nav-link <?= $currentPage === 'newStaff' ? 'active' : '' ?>">
+    <a href="?page=staff" class="nav-link <?= $currentPage === 'staff' ? 'active' : '' ?>">
         New Staff
     </a>
     

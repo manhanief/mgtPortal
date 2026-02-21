@@ -31,9 +31,12 @@ switch ($action) {
         
         $imagePath = '';
         if (isset($_FILES['image']) && $_FILES['image']['error'] === UPLOAD_ERR_OK) {
+            
+            $publicDir = 'uploads/slideshow/';               // what you WANT
+            $uploadDir = '/' . $publicDir;  // filesystem
             $upload = uploadImage($_FILES['image'], UPLOAD_DIR . 'slideshow/', 'slide');
             if ($upload['success']) {
-                $imagePath = str_replace('../', '', $upload['path']);
+                $imagePath = $publicDir . $upload['filename'];
             }
         }
         
@@ -70,11 +73,11 @@ switch ($action) {
                 deleteImage('../' . $imagePath);
             }
             
-        $rootPath = realpath(__DIR__ . '/../../');   // MPortal root
-        $publicDir = 'uploads/news/';               // what you WANT
-        $uploadDir = $rootPath . '/' . $publicDir;  // filesystem
+        //$rootPath = realpath(__DIR__ . '/../../');   // MPortal root
+        $publicDir = 'uploads/slideshow/';               // what you WANT
+        $uploadDir = '/' . $publicDir;  // filesystem
 
-        $upload = uploadImage($_FILES['image'], $uploadDir, 'news_1');
+        $upload = uploadImage($_FILES['image'], UPLOAD_DIR . 'slideshow/', 'slide');
 
         if ($upload['success']) {
             // 🔥 EXACT output you want

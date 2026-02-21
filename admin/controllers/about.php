@@ -25,25 +25,29 @@ $sessionalCount = $_POST['sessional_count'] ?? 0;
 $moNumber = $_POST['mo_number'] ?? '';
 $vision = $_POST['vision'] ?? '';
 $mission = $_POST['mission'] ?? '';
-
-$imagePath = $current['image_path'] ?? '';
+$imagePath = $current['image_path'] ?? '';  
 $visionMissionImage = $current['vision_mission_image'] ?? '';
 
 // Handle main image upload
 if (isset($_FILES['image']) && $_FILES['image']['error'] === UPLOAD_ERR_OK) {
     if ($imagePath) deleteImage('../' . $imagePath);
+        $publicDir = 'uploads/about/';               // what you WANT
+        $uploadDir = '/' . $publicDir;  // filesystem
     $upload = uploadImage($_FILES['image'], UPLOAD_DIR . 'about/', 'about');
     if ($upload['success']) {
-        $imagePath = str_replace('../', '', $upload['path']);
+        $imagePath = $publicDir . $upload['filename'];
     }
 }
 
 // Handle vision/mission image upload
 if (isset($_FILES['vision_mission_image']) && $_FILES['vision_mission_image']['error'] === UPLOAD_ERR_OK) {
     if ($visionMissionImage) deleteImage('../' . $visionMissionImage);
+
+            $publicDir = 'uploads/about/';               // what you WANT
+        $uploadDir = '/' . $publicDir;  // filesystem
     $upload = uploadImage($_FILES['vision_mission_image'], UPLOAD_DIR . 'about/', 'vision');
     if ($upload['success']) {
-        $visionMissionImage = str_replace('../', '', $upload['path']);
+        $visionMissionImage = $publicDir . $upload['filename'];
     }
 }
 

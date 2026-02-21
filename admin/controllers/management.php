@@ -43,9 +43,13 @@ switch ($action) {
         
         $imagePath = '';
         if (isset($_FILES['image']) && $_FILES['image']['error'] === UPLOAD_ERR_OK) {
+            
+            $publicDir = 'uploads/management/';               // what you WANT
+            $uploadDir = '/' . $publicDir;  // filesystem
             $upload = uploadImage($_FILES['image'], UPLOAD_DIR . 'management/', 'member');
+            
             if ($upload['success']) {
-                $imagePath = str_replace('../', '', $upload['path']);
+                $imagePath = $publicDir . $upload['filename'];
             }
         }
         
@@ -78,10 +82,14 @@ switch ($action) {
         $imagePath = $current['image_path'] ?? '';
         
         if (isset($_FILES['image']) && $_FILES['image']['error'] === UPLOAD_ERR_OK) {
+            
+            $publicDir = 'uploads/management/';               // what you WANT
+            $uploadDir = '/' . $publicDir;  // filesystem
             if ($imagePath) deleteImage('../' . $imagePath);
             $upload = uploadImage($_FILES['image'], UPLOAD_DIR . 'management/', 'member');
             if ($upload['success']) {
-                $imagePath = str_replace('../', '', $upload['path']);
+                $imagePath = $publicDir . $upload['filename'];
+                
             }
         }
         

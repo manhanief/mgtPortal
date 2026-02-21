@@ -427,7 +427,6 @@ document.getElementById('managementForm').addEventListener('submit', async (e) =
     saveBtn.disabled = true;
     saveBtn.textContent = '⏳ Saving...';
     
-    try {
         const response = await fetch('controllers/management.php', {
             method: 'POST',
             body: formData
@@ -443,12 +442,7 @@ document.getElementById('managementForm').addEventListener('submit', async (e) =
             saveBtn.disabled = false;
             saveBtn.textContent = '💾 Save';
         }
-    } catch (error) {
-        console.error('Error:', error);
-        alert('❌ Network error');
-        saveBtn.disabled = false;
-        saveBtn.textContent = '💾 Save';
-    }
+
 });
 
 // Close modal when clicking outside

@@ -1,0 +1,12 @@
+<html>
+<body style="font-family:Arial; text-align:center; border:2px solid #000; width:350px;">
+<h2>COMPANY DIGITAL ID</h2>
+<img src="@{triggerOutputs()?['body/PhotoURL']}" width="100"/><br>
+<b>@{triggerOutputs()?['body/FullName']}</b><br>
+Staff ID: @{triggerOutputs()?['body/StaffID']}<br>
+Dept: @{triggerOutputs()?['body/Department']}<br>
+Position: @{triggerOutputs()?['body/Position']}<br><br>
+<img src="@{outputs('Compose_QR')}" width="120"/>
+<p>Valid Until: @{triggerOutputs()?['body/ExpiryDate']}</p>
+</body>
+</html>

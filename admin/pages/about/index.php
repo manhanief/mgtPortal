@@ -1,4 +1,8 @@
 <?php
+ini_set('display_errors', 1);
+ini_set('display_startup_errors', 1);
+error_reporting(E_ALL);
+
 $stmt = $db->prepare("SELECT * FROM `about_us` WHERE `id` = 1");
 $stmt->execute();
 $about = $stmt->fetch(PDO::FETCH_ASSOC);
