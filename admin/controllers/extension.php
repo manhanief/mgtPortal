@@ -15,7 +15,7 @@ $action = $_REQUEST['action'] ?? '';
 switch ($action) {
     case 'get':
         $id = $_GET['id'] ?? 0;
-        $stmt = $db->prepare("SELECT * FROM `extensions` WHERE `id` = ?");
+        $stmt = $db->prepare("SELECT * FROM `extensions` WHERE `id` = ? ORDER BY `department` ASC");
         $stmt->execute([$id]);
         $data = $stmt->fetch(PDO::FETCH_ASSOC);
         echo json_encode(['success' => true, 'data' => $data]);

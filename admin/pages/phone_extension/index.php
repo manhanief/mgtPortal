@@ -1,5 +1,5 @@
 <?php
-$extensions = getTableData($db, 'extensions', 'display_order', 'ASC');
+$extensions = getTableData($db, 'extensions', 'department', 'ASC');
 ?>
 
 <section class="content-section">
