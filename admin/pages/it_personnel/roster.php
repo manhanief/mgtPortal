@@ -25,7 +25,7 @@ try{
             
             // Cycle through IT team members
             $staffIndex = ($boxNum - 1) % count($itTeam);
-            $staffName = count($itTeam) > 0 ? $itTeam[$staffIndex]['name'] : 'Staff ' . $boxNum;
+            $staffName = count($itTeam) > 0 ? $itTeam[$staffIndex]['username'] : 'Staff ' . $boxNum;
             
             // Generate date based on box number (cycle through days of month)
             $dayNum = (($boxNum - 1) % $daysInMonth) + 1;
@@ -62,8 +62,8 @@ try{
                 <select name="title" id="staffSelect">
                     <option value="">-- Select Staff --</option>
                     <?php foreach($itTeam as $staff): ?>
-                        <option value="<?= htmlspecialchars($staff['name']) ?>">
-                            <?= htmlspecialchars($staff['name']) ?>
+                        <option value="<?= htmlspecialchars($staff['username']) ?>">
+                            <?= htmlspecialchars($staff['username']) ?>
                         </option>
                     <?php endforeach; ?>
                 </select>
@@ -101,7 +101,7 @@ try{
 <style>
 .roster-grid {
     display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
+    grid-template-columns: repeat(auto-fill, minmax(140px, 1fr));
     gap: 15px;
 }
 

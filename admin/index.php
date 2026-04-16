@@ -51,7 +51,7 @@ $routes = [
     'it_special_days'      => 'pages/it_personnel/special_days.php',
 
     // eLearning
-    'slides'            => 'pages/home/slideshow.php',
+    'slides'            => 'pages/elearning/index.php',
     'tickets'           => 'pages/elearning/tickets.php',
 
     // Other
@@ -61,6 +61,9 @@ $routes = [
     'sustainability'    => 'pages/sustainability/index.php',
     'extensions'        => 'pages/phone_extension/index.php',
     'staff'             => 'pages/new_staff/index.php',
+    'kpj'               => 'pages/kpj/index.php',
+    'navigation'          => 'pages/navigation_settings.php',
+    
 ];
 
 // Current page (safe default)

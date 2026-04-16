@@ -1,6 +1,6 @@
 <?php
-require_once 'config.php';
-require_once 'auth.php';
+require_once '../config.php';
+require_once '../auth.php';
 
 if (!isAuthenticated()) {
     header('Location: index.php');
@@ -89,13 +89,13 @@ if (!$item) {
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Edit <?= ucfirst($type) ?> #<?= $id ?></title>
-    <link rel="stylesheet" href="assets/admin-style.css">
+    <link rel="stylesheet" href="../assets/admin-style.css">
 </head>
 <body>
     <div class="admin-container">
         <header class="admin-header">
             <h1>✏️ Edit <?= ucfirst($type) ?> #<?= $id ?></h1>
-            <a href="index.php" class="btn-back">← Back to Dashboard</a>
+            <a onclick="window.history.back()" class="btn-back">← Back to Dashboard</a>
         </header>
 
         <?php if (isset($success)): ?>
@@ -114,7 +114,7 @@ if (!$item) {
                 <div class="form-group">
                     <label>Current Image:</label>
                     <?php if ($item['image_path']): ?>
-                        <img src="../<?= htmlspecialchars($item['image_path']) ?>" class="current-image" alt="Current">
+                        <img src="/Mportal/<?= htmlspecialchars($item['image_path']) ?>" class="current-image" alt="Current">
                     <?php else: ?>
                         <p class="no-image-text">No image uploaded</p>
                     <?php endif; ?>

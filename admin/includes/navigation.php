@@ -1,13 +1,25 @@
+<?php
+    $conn = new mysqli('localhost', 'root', '', 'company_portal');
+    if ($conn->connect_error) {
+        die('Database connection failed: ' . $conn->connect_error);
+    }
+    $result = $conn->query("SELECT * FROM navigation_menu ORDER BY id ASC");
+    $navigationItems = [];
+    while ($row = $result->fetch_assoc()) {
+        $navigationItems[] = $row;
+    }
+    $conn->close();
+?>
 <!-- NAVIGATION BAR -->
 <nav class="admin-nav">
     <a href="?page=dashboard" class="nav-link <?= $currentPage === 'dashboard' ? 'active' : '' ?>">
-        Dashboard
+        <?= $navigationItems[0]['display_name'] ?? '' ?>
     </a>
     
     <!-- Home Section Dropdown -->
     <div class="nav-dropdown">
         <a href="#" class="nav-link <?= in_array($currentPage, ['slideshow', 'systems']) ? 'active' : '' ?>">
-            Home <span class="dropdown-arrow">▼</span>
+            <?= $navigationItems[4]['display_name'] ?? 'Home' ?> <span class="dropdown-arrow">▼</span>
         </a>
         <div class="dropdown-content">
             <a href="?page=slideshow">Slideshow</a>
@@ -21,11 +33,11 @@
             Corporate Profile <span class="dropdown-arrow">▼</span>
         </a>
         <div class="dropdown-content">
-            <a href="?page=about">About Info</a>
-            <a href="?page=management">Management</a>
-            <a href="?page=it_team">IT Team</a>
-            <a href="?page=it_roster">IT Roster</a>
-            <a href="?page=it_special_days">IT Special Days</a>
+            <a href="?page=about"><?= $navigationItems[1]['display_name'] ?? '' ?></a>
+            <a href="?page=management"><?= $navigationItems[2]['display_name'] ?? '' ?></a>
+            <a href="?page=it_team"><?= $navigationItems[3]['display_name'] ?? '' ?></a>
+            <a href="?page=it_roster"><?= $navigationItems[3]['display_name'] ?? '' ?> Roster</a>
+            <a href="?page=it_special_days"><?= $navigationItems[3]['display_name'] ?? '' ?> Special Days</a>
         </div>
     </div>
     
@@ -33,7 +45,7 @@
     <!-- E-Learning Dropdown -->
     <div class="nav-dropdown">
         <a href="#" class="nav-link <?= in_array($currentPage, ['slides', 'learning-tickets']) ? 'active' : '' ?>">
-            E-Learning <span class="dropdown-arrow">▼</span>
+            <?= $navigationItems[6]['display_name'] ?? '' ?> <span class="dropdown-arrow">▼</span>
         </a>
         <div class="dropdown-content">
             <a href="?page=slides">Slides</a>
@@ -43,7 +55,7 @@
 
     <div class="nav-dropdown">
         <a href="#" class="nav-link <?= in_array($currentPage, ['page=news', 'page=packages']) ? 'active' : '' ?>">
-             Updates <span class="dropdown-arrow">▼</span>
+             <?= $navigationItems[8]['display_name'] ?? '' ?> <span class="dropdown-arrow">▼</span>
         </a>
         <div class="dropdown-content">
             <a href="?page=news">News</a>
@@ -53,24 +65,26 @@
 
     
     <a href="?page=sustainability" class="nav-link <?= $currentPage === 'sustainability' ? 'active' : '' ?>">
-         Sustainability
+            <?= $navigationItems[7]['display_name'] ?? '' ?>
     </a>
     <a href="?page=staff" class="nav-link <?= $currentPage === 'staff' ? 'active' : '' ?>">
-        New Staff
+        <?= $navigationItems[5]['display_name'] ?? '' ?>
     </a>
     
     <a href="?page=extensions" class="nav-link <?= $currentPage === 'extensions' ? 'active' : '' ?>">
-         Extensions
+         <?= $navigationItems[10]['display_name'] ?? '' ?>
     </a>
 
     
     <div class="nav-dropdown">
         <a href="#" class="nav-link <?= in_array($currentPage, ['settings', '10.26.2.75']) ? 'active' : '' ?>">
-            Othes <span class="dropdown-arrow">▼</span>
+            Others <span class="dropdown-arrow">▼</span>
         </a>
         <div class="dropdown-content">
-            <a href="?page=settings">⚙️ Settings</a>
-            <a href="10.26.2.75">🌐 IT Portal</a>
+            <a href="?page=navigation">Navigation</a>
+            <a href="?page=kpj"><?= $navigationItems[9]['display_name'] ?? '' ?></a>
+            <a href="?page=settings">Settings</a>
+            <a href="10.26.2.75">IT Portal</a>
         </div>
     </div>
     

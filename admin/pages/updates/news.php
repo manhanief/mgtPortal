@@ -15,7 +15,7 @@ $news = getTableData($db, 'news', 'id', 'ASC');
                 <h3><?= htmlspecialchars($item['title']) ?></h3>
                 <p><?= htmlspecialchars($item['details']) ?></p>
                 <small>Updated: <?= date('M d, Y', strtotime($item['update_date'])) ?></small>
-                <a href="edit-item.php?type=news&id=<?= $item['id'] ?>" class="btn-edit">Edit</a>
+                <a href="pages/edit-item.php?type=news&id=<?= $item['id'] ?>" class="btn-edit">Edit</a>
             </div>
         <?php endforeach; ?>
     </div>

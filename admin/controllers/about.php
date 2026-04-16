@@ -17,7 +17,9 @@ $stmt = $db->prepare("SELECT * FROM `about_us` WHERE `id` = 1");
 $stmt->execute();
 $current = $stmt->fetch(PDO::FETCH_ASSOC);
 
+$companyName = $_POST['companyName'] ?? '';
 $description = $_POST['description'] ?? '';
+$description2 = $_POST['description2'] ?? '';
 $bedsCount = $_POST['beds_count'] ?? 0;
 $residentCount = $_POST['resident_count'] ?? 0;
 $visitingCount = $_POST['visiting_count'] ?? 0;
@@ -53,14 +55,14 @@ if (isset($_FILES['vision_mission_image']) && $_FILES['vision_mission_image']['e
 
 $stmt = $db->prepare("
     UPDATE `about_us` 
-    SET `image_path` = ?, `description` = ?, `beds_count` = ?, `resident_count` = ?, 
+    SET `image_path` = ?, `companyName` = ?, `description` = ?, `description2` = ?, `beds_count` = ?, `resident_count` = ?, 
         `visiting_count` = ?, `sessional_count` = ?, `mo_number` = ?, `vision` = ?, 
         `mission` = ?, `vision_mission_image` = ?
     WHERE `id` = 1
 ");
 
 if ($stmt->execute([
-    $imagePath, $description, $bedsCount, $residentCount, 
+    $imagePath, $companyName, $description, $description2, $bedsCount, $residentCount, 
     $visitingCount, $sessionalCount, $moNumber, $vision, 
     $mission, $visionMissionImage
 ])) {

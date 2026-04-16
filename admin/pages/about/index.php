@@ -12,15 +12,20 @@ $about = $stmt->fetch(PDO::FETCH_ASSOC);
     <h2>ℹ️ About Us Information</h2>
     
     <form id="aboutForm" enctype="multipart/form-data">
+            
+        <div class="form-group">
+            <label>Company Name:</label>
+            <textarea name="companyName" rows="1"><?= htmlspecialchars($about['companyName']) ?></textarea>
+        </div>
         <div class="form-row">
             <div class="form-col-6">
                 <div class="form-group">
-                    <label>Main Image:</label>
+                    <label>Company Image:</label>
                     <?php if ($about['image_path']): ?>
                         <img src="../<?= htmlspecialchars($about['image_path']) ?>" class="preview-image">
                     <?php endif; ?>
                     <input type="file" name="image" accept="image/*">
-                    <small>Main about us image</small>
+                    <small>Main about us image <br><red style='color:darkred'> #reduce image size if failed to upload</red></small>
                 </div>
             </div>
             
@@ -31,50 +36,56 @@ $about = $stmt->fetch(PDO::FETCH_ASSOC);
                         <img src="../<?= htmlspecialchars($about['vision_mission_image']) ?>" class="preview-image">
                     <?php endif; ?>
                     <input type="file" name="vision_mission_image" accept="image/*">
-                    <small>Vision & mission section image</small>
+                    <small>Vision & mission section image <br><red style='color:darkred'> #reduce image size if failed to upload</red></small>
                 </div>
             </div>
         </div>
         
         <div class="form-group">
-            <label>Description:</label>
-            <textarea name="description" rows="5"><?= htmlspecialchars($about['description']) ?></textarea>
+            <label>Details 1:</label>
+            <textarea name="description" rows="2"><?= htmlspecialchars($about['description']) ?></textarea>
+        </div>
+        <div class="form-group">
+            <label>Details 2:</label>
+            <textarea name="description2" rows="2"><?= htmlspecialchars($about['description2']) ?></textarea>
         </div>
         
         <div class="form-row">
             <div class="form-col-3">
                 <div class="form-group">
-                    <label>Beds Count:</label>
-                    <input type="number" name="beds_count" value="<?= $about['beds_count'] ?>" min="0">
+                    <label>Beds Number:</label>
+                    <input type="text" name="beds_count" value="<?= $about['beds_count'] ?>" min="0">
                 </div>
             </div>
             
             <div class="form-col-3">
                 <div class="form-group">
-                    <label>Resident Count:</label>
-                    <input type="number" name="resident_count" value="<?= $about['resident_count'] ?>" min="0">
+                    <label>Resident Number:</label>
+                    <input type="text" name="resident_count" value="<?= $about['resident_count'] ?>" min="0">
                 </div>
             </div>
             
             <div class="form-col-3">
                 <div class="form-group">
-                    <label>Visiting Count:</label>
-                    <input type="number" name="visiting_count" value="<?= $about['visiting_count'] ?>" min="0">
+                    <label>Visiting Number:</label>
+                    <input type="text" name="visiting_count" value="<?= $about['visiting_count'] ?>" min="0">
                 </div>
             </div>
             
             <div class="form-col-3">
                 <div class="form-group">
-                    <label>Sessional Count:</label>
-                    <input type="number" name="sessional_count" value="<?= $about['sessional_count'] ?>" min="0">
+                    <label>Sessional Number:</label>
+                    <input type="text" name="sessional_count" value="<?= $about['sessional_count'] ?>" min="0">
+                </div>
+            </div>
+            <div class="form-col-3">
+                <div class="form-group">
+                    <label>MO Number:</label>
+                    <input type="text" name="mo_number" value="<?= $about['mo_number'] ?>" min="0">
                 </div>
             </div>
         </div>
-        
-        <div class="form-group">
-            <label>MO's Number:</label>
-            <input type="text" name="mo_number" value="<?= htmlspecialchars($about['mo_number']) ?>">
-        </div>
+
         
         <div class="form-group">
             <label>Vision:</label>
